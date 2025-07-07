@@ -1,5 +1,86 @@
 body {
   margin: 0;
+  font-family: 'Comic Neue', 'Courier New', cursive, sans-serif;
+  background-color: #fff6fb;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  color: #ff69b4;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 1rem;
+  max-width: 360px;
+  margin-bottom: 30px;
+  color: #555;
+  line-height: 1.5;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+input {
+  padding: 12px 16px;
+  width: 280px;
+  font-size: 1rem;
+  border: 2px solid #ffd6e8;
+  border-radius: 12px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #ff69b4;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  background-color: #ff69b4;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff1493;
+}
+
+.result {
+  margin-top: 30px;
+  font-size: 1.1rem;
+  background-color: #ffe4ee;
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+
+/* body {
+  margin: 0;
   font-family: 'Arial', cursive, sans-serif;
   background-color: #fff0f5;
 }
@@ -56,3 +137,7 @@ button:hover {
   border-radius: 10px;
   max-width: 300px;
 }
+
+
+
+ */

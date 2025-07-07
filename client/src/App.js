@@ -8,12 +8,12 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5001/predict', {
+      const res = await fetch('/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ scenario }),
       });
-
+      
   
       const data = await res.json();
       setPrediction(data.prediction);
@@ -27,7 +27,7 @@ function App() {
     <div className="container">
       <h1>What Will Happen? 🔮</h1>
       <p className="description">
-        A fun, predictive tool where teens describe a situation (like “If I text my ex...”) and get playful GPT-style predictions with funny odds and emoji reactions.
+        A fun, predictive tool where teens describe a situation (like “If I text my ex...”) and get playful predictions with funny odds and emoji reactions.
       </p>
       <form onSubmit={handleSubmit}>
         <input
