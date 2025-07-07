@@ -4,8 +4,12 @@
 /.pnp
 .pnp.js
 node_modules
-server/node_modules
-server/chatgpt-index.js
+server
+client/node_modules
+
+
+
+
 
 # testing
 /coverage
