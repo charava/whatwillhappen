@@ -3,6 +3,9 @@
 # dependencies
 /.pnp
 .pnp.js
+node_modules
+server/node_modules
+server/chatgpt-index.js
 
 # testing
 /coverage
