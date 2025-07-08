@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { BsArrowRepeat } from "react-icons/bs";
 
+
 function App() {
   const [scenario, setScenario] = useState('');
   const [prediction, setPrediction] = useState(null);
@@ -16,7 +17,6 @@ function App() {
       });
 
       const data = await res.json();
-      console.log(data);
 
       // Display the single prediction
       if (data.prediction) {
@@ -34,7 +34,10 @@ function App() {
     <div className='App' style={{ backgroundImage: `url("somethingsbackdrop.png")` }}> 
       <div className='Container'>
         <div className="backdrop">
-          <img src={"logo-white.png"} alt="logo" className="logo" />
+          {/* <img src={"logo-white.png"} alt="logo" className="logo" /> */}
+          <a href="https://somethings.com" target="_blank" rel="noopener noreferrer">
+            <img src={"logo-white.png"} alt="logo" className="logo" />
+          </a>
           {!prediction ? (
             <form onSubmit={handleSubmit} className="form animate-zoom-in">
               <h1>What Will Happen?</h1>
@@ -51,7 +54,11 @@ function App() {
           ) : (
             <div className="result animate-zoom-in">
               <p className="prediction_outcome">{prediction.outcome}</p>
-              <p className="prediction_probability">{prediction.probability}% chance</p>
+              {prediction.probability !== "" && (
+                  <p className="prediction_probability">
+                    {`${prediction.probability}% chance`}
+                  </p>
+                )}
               <p className="prediction_reasoning">{prediction.reasoning}</p>
               <button
                 className="ask-another"

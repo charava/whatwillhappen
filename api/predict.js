@@ -1,5 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+
+
+// violence, self harm, abuse, sexual, bullying, hate speech, illegal activities, personal data, misinformation, spam, harassment, discrimination, explicit content, sensitive topics, political content, medical advice
+// These are the categories that the AI should not generate content for.
+
+
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Only POST method allowed" });
@@ -38,25 +45,72 @@ export default async function handler(req, res) {
     if (!selectedModel) {
     throw new Error("No supported models are available with your API key");
     }
-    const model = genAI.getGenerativeModel({ model: selectedModel });
+    const model = genAI.getGenerativeModel(
+        { model: selectedModel },
+        
+      );
+    
     // const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" }); 
 
     const prompt = `
-You are a playful teen life predictor. A user has submitted the following scenario: "${scenario}".
+    You are a playful Gen-Z teen life predictor and close friend. A user has submitted the following scenario: "${scenario}".
+    
+    Do not generate content related to the following categories: 
+    - Suicide or self-harm
+    - Violence or harm to others
+    - Abuse (physical, emotional, sexual)
+    - Sexual content or misconduct
+    - Bullying or harassment
+    - Hate speech or discrimination
+    - Illegal activity
+    - Personal/confidential information
+    - Misinformation or spam
+    - Explicit content
+    - Medical or legal advice
+    - Sensitive political topics
+    
+    If the scenario involves any of these categories, respond ONLY with the following JSON content:
+    
+    {
+      "scenario": "Scenario contains prohibited content."
+      "prediction": {
+        "outcome": "",
+        "probability": "",
+        "reasoning": ""
+      }
+    }
 
-Respond in the following JSON format ONLY:
+    Sorry, your situation does not follow our safety guidelines. 
+    
+    Otherwise, respond in the following JSON format ONLY:
+    
+    {
+      "scenario": "<input scenario>",
+      "prediction": {
+        "outcome": "<short outcome>",
+        "probability": <percent as number>,
+        "reasoning": "<insightful reasoning>"
+      }
+    }
+    
+    Ensure the response adheres to the safety guidelines and does not include any prohibited content.
+    `;
+//     const prompt = `
+// You are a playful teen life predictor. A user has submitted the following scenario: "${scenario}".
 
-{
-  "scenario": "<input scenario>",
-  "prediction": {
-    "outcome": "<short outcome>",
-    "probability": <percent as number>,
-    "reasoning": "<insightful reasoning>"
-  }
-}
+// Respond in the following JSON format ONLY:
 
-Provide only one prediction with a single outcome, a probability score, and reasoning insight.
-`;
+// {
+//   "scenario": "<input scenario>",
+//   "prediction": {
+//     "outcome": "<short outcome>",
+//     "probability": <percent as number>,
+//     "reasoning": "<insightful reasoning>"
+//   }
+// }
+
+// Provide only one prediction with a single outcome, a probability score, and reasoning insight.
+// `;
 
 const result = await model.generateContent(prompt);
 const text = result.response.text();

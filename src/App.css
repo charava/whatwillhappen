@@ -126,7 +126,7 @@ h1 {
 }
 
 input::placeholder {
-  color: rgb(213, 213, 213); /* Set the placeholder text color */
+  color: rgb(241, 241, 241); /* Set the placeholder text color */
   opacity: 1; /* Ensure the placeholder is fully visible */
 }
 

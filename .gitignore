@@ -4,7 +4,8 @@
 /.pnp
 .pnp.js
 node_modules
-server
+server 
+# no longer needed server because im using vercel api structure
 client/node_modules
 
 
