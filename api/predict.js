@@ -12,7 +12,34 @@ export default async function handler(req, res) {
 
   try {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const models = [
+    "gemini-2.0-flash-lite",
+    "gemini-2.0-flash",
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-8b",
+    "gemini-1.5-pro"
+    ];
+    
+    let selectedModel = null;
+    
+    models.some(model => {
+    try {
+        if (genAI.getGenerativeModel({ model })) {
+        selectedModel = model;
+        return true; // Break the loop once a valid model is found
+        }
+    } catch (error) {
+        console.warn(`Model ${model} is not available:`, error.message);
+        return false; // Continue to the next model
+    }
+    });
+    
+    if (!selectedModel) {
+    throw new Error("No supported models are available with your API key");
+    }
+    const model = genAI.getGenerativeModel({ model: selectedModel });
+    // const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" }); 
 
     const prompt = `
 You are a playful teen life predictor. A user has submitted the following scenario: "${scenario}".
@@ -21,40 +48,29 @@ Respond in the following JSON format ONLY:
 
 {
   "scenario": "<input scenario>",
-  "predictions": [
-    {
-      "outcome": "<short outcome>",
-      "probability": <percent as number>,
-      "emoji": "<one emoji>",
-      "reasoning": "<funny, playful reasoning>"
-    },
-    ...
-  ]
+  "prediction": {
+    "outcome": "<short outcome>",
+    "probability": <percent as number>,
+    "reasoning": "<insightful reasoning>"
+  }
 }
 
-Give 3 predictions, each with a unique outcome. Make the reasoning insightful and fun.
+Provide only one prediction with a single outcome, a probability score, and reasoning insight.
 `;
 
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
+const result = await model.generateContent(prompt);
+const text = result.response.text();
 
-    // Try to safely parse JSON from Gemini's text
-    const match = text.match(/\{[\s\S]*\}/);
-    if (!match) throw new Error("No JSON found in response");
+// Try to safely parse JSON from Gemini's text
+const match = text.match(/\{[\s\S]*\}/);
+if (!match) throw new Error("No JSON found in response");
 
-    const parsed = JSON.parse(match[0]);
+const parsed = JSON.parse(match[0]);
 
-    // Sort predictions by probability
-    parsed.predictions.sort((a, b) => b.probability - a.probability);
-    const mostLikely = parsed.predictions[0];
-    const secondMostLikely = parsed.predictions[1];
-
-    res.status(200).json({
-      scenario: parsed.scenario,
-      predictions: parsed.predictions,
-      mostLikely,
-      secondMostLikely,
-    });
+res.status(200).json({
+  scenario: parsed.scenario,
+  prediction: parsed.prediction,
+});
   } catch (error) {
     console.error("Gemini API Error:", error);
     res.status(500).json({ error: "Failed to get structured prediction from Gemini" });

@@ -1,0 +1,249 @@
+body {
+  margin: 0;
+  font-family: 'Comic Neue', 'Courier New', cursive, sans-serif;
+  background-color: #fff6fb;
+  color: #333;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Ensure the app takes up the full viewport height */
+  font-family: 'Source Sans Pro', sans-serif;
+  color: rgb(49, 51, 63);
+  background-repeat: no-repeat; /* Prevent background repetition */
+  background-size: cover;
+}
+
+
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Fill the container */
+}
+.backdrop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Fill the backdrop */
+}
+
+
+h1 {
+  text-align: center;
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: 900;
+  font-family: Avantt, sans-serif;
+}
+
+.description {
+  font-size: 1rem;
+  max-width: 360px;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8); /* Start slightly smaller */
+    opacity: 0; /* Start invisible */
+  }
+  to {
+    transform: scale(1); /* End at normal size */
+    opacity: 1; /* End fully visible */
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1); /* Start at normal size */
+    opacity: 1; /* Start fully visible */
+  }
+  to {
+    transform: scale(0.8); /* End slightly smaller */
+    opacity: 0; /* End invisible */
+  }
+}
+
+.animate-zoom-in {
+  animation: zoomIn 1s ease-in-out; /* Apply zoom-in animation */
+}
+
+.animate-zoom-out {
+  animation: zoomOut 1s ease-in-out; /* Apply zoom-out animation */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: rgb(247, 247, 247);
+  padding-bottom: 30px;
+  margin: 20px;
+}
+
+.result {
+  margin-top: 30px;
+  font-size: 1.1rem;
+  background-color: rgba(59, 130, 246, 0.35);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  padding: 20px;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  color: white;
+}
+
+.input-wrapper {
+  display: flex; /* Align input and button inline */
+  align-items: center; /* Vertically center the elements */
+  gap: 8px; /* Add spacing between input and button */
+  width: 100%; /* Ensure the wrapper spans the same width as the input */
+}
+
+.input-wrapper input {
+  flex: 1; /* Make the input take up available space */
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid rgba(59, 130, 246, 0);
+  border-radius: 20px; 
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: border-color 0.3s ease;
+  font-family: TWK Lausanne, sans-serif;
+  color: rgb(247, 247, 247);
+
+}
+
+input::placeholder {
+  color: rgb(213, 213, 213); /* Set the placeholder text color */
+  opacity: 1; /* Ensure the placeholder is fully visible */
+}
+
+/* .input-wrapper input:focus {
+  border: 2px solid rgba(59, 130, 246, 0.3);
+} */
+
+.input-wrapper button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 18px; 
+  background-color: rgba(59, 130, 246, 0.8);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.input-wrapper button:hover {
+  background-color: rgba(59, 130, 246, 0.3);
+}
+.result {
+  margin-top: 30px;
+  font-size: 1.1rem;
+  background-color: rgba(59, 130, 246, 0.35);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  padding: 2vh 10vw;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  color: white;
+}
+
+
+.prediction {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.prediction p {
+  margin: 5px 0;
+}
+
+.prediction_outcome {
+  font-family: Avantt, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.71rem, 3.8vw, 2.66rem);
+  text-align: center;
+  margin: 20px 0px 10px 0px;
+  padding: 20px 0px 15px 0px;
+
+
+}
+.prediction_probability {
+  background-color: rgba(57, 255, 20, 0.3);
+  border: 1px solid white;
+  width: 150px; /* Set a fixed width */
+  padding: 10px; /* Add padding for spacing */
+  margin: 0 auto; /* Center the box horizontally */
+  text-align: center; /* Center the text inside the box */
+  border-radius: 8px; /* Round the corners */
+}
+
+
+.prediction_reasoning {
+  font-family: TWK Lausanne, sans-serif;
+  font-size: var(--text-p);
+  font-weight: var(--font-weight-normal);
+  line-height: 24px;
+}      
+
+.logo {
+  width: 125px;
+  position: absolute; /* Align the logo to the top */
+  top: 20px; /* Add spacing from the top */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust centering */
+}
+
+.ask-another {
+  margin: 20px auto; /* Center the button horizontally */
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  background-color: rgba(59, 130, 246, 0.35); /* Match the background box color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex; /* Use flexbox to align icon and text */
+  align-items: center; /* Center icon and text vertically */
+  gap: 8px; /* Add spacing between icon and text */
+}
+
+.ask-another:hover {
+  background-color: rgba(59, 130, 246, 0.5); /* Slightly darker hover effect */
+}
+
+.redo-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.8em;
+  color:rgb(213, 213, 213);
+}
